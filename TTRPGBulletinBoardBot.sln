@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TTRPGBulletinBoardBot.Host", "src\TTRPGBulletinBoardBot.Host\TTRPGBulletinBoardBot.Host.csproj", "{1529DE09-D1C4-4448-B909-F4F2B544FCF3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{C3755320-ED25-4DCE-AEE4-F4EF25C5D34C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{ECE5E3D8-2122-4CC7-9FA0-9CE6E2B60BCF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TTRPGBulletinBoardBot.Core", "src\TTRPGBulletinBoardBot.Core\TTRPGBulletinBoardBot.Core.csproj", "{A2AFB446-91E4-48A3-8EF0-F2BC123CC6AA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1529DE09-D1C4-4448-B909-F4F2B544FCF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1529DE09-D1C4-4448-B909-F4F2B544FCF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1529DE09-D1C4-4448-B909-F4F2B544FCF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1529DE09-D1C4-4448-B909-F4F2B544FCF3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2AFB446-91E4-48A3-8EF0-F2BC123CC6AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2AFB446-91E4-48A3-8EF0-F2BC123CC6AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2AFB446-91E4-48A3-8EF0-F2BC123CC6AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2AFB446-91E4-48A3-8EF0-F2BC123CC6AA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1529DE09-D1C4-4448-B909-F4F2B544FCF3} = {C3755320-ED25-4DCE-AEE4-F4EF25C5D34C}
+		{A2AFB446-91E4-48A3-8EF0-F2BC123CC6AA} = {C3755320-ED25-4DCE-AEE4-F4EF25C5D34C}
+	EndGlobalSection
+EndGlobal
