@@ -12,6 +12,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using TTRPGBulletinBoardBot.Core.Repositories;
+using TTRPGBulletinBoardBot.Core.Services;
 
 namespace TTRPGBulletinBoardBot.Host
 {
@@ -29,7 +31,9 @@ namespace TTRPGBulletinBoardBot.Host
         {
             services.AddControllers()
                 .AddNewtonsoftJson();
-            
+
+            services.AddTransient<ActionService>();
+            services.AddSingleton<UsersRepository>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "TTRPGBulletinBoardBot.Host", Version = "v1"});

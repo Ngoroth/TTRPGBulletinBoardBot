@@ -1,0 +1,7 @@
+*.dll
+*.pdb
+*.cache
+bin/
+obj/
+.idea/
+*.user

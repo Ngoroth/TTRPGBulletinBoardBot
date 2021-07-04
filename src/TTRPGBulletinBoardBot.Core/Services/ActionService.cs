@@ -6,9 +6,17 @@ namespace TTRPGBulletinBoardBot.Core.Services
     public class ActionService
     {
         private readonly UsersRepository _usersRepository;
-        public static Stage GetUserStage(long userId)
+
+        public ActionService(UsersRepository usersRepository)
         {
-            throw new NotImplementedException();
+            _usersRepository = usersRepository;
+        }
+
+        public Stage GetUserStage(long userId)
+        {
+            var userEntity = _usersRepository.FindOne(userId);
+
+            return userEntity?.Stage ?? Stage.Start;
         }
     }
 }
