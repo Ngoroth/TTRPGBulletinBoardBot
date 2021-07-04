@@ -6,7 +6,7 @@ namespace TTRPGBulletinBoardBot.Core.Repositories
 {
     public class UsersRepository
     {
-        private readonly HashSet<UserEntity> _entities = new HashSet<UserEntity>();
+        private readonly HashSet<UserEntity> _entities = new();
 
         public void Add(UserEntity entity)
         {
@@ -16,6 +16,13 @@ namespace TTRPGBulletinBoardBot.Core.Repositories
         public UserEntity? FindOne(long id)
         {
             return _entities.FirstOrDefault(entity => entity.Id == id);
+        }
+
+        public void SetUserStage(long userId, Stage stage)
+        {
+            var userEntity = _entities.Single(entity => entity.Id == userId);
+            _entities.Remove(userEntity);
+            _entities.Add(new UserEntity(userId, stage));
         }
     }
 }

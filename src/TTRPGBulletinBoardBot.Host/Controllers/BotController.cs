@@ -14,19 +14,23 @@ namespace TTRPGBulletinBoardBot.Host.Controllers
         private readonly ILogger<BotController> _logger;
         private readonly ITelegramBotClient _botClient;
         private readonly ActionService _actionService;
+        private readonly PhraseService _phraseService;
 
-        public BotController(ILogger<BotController> logger, ActionService actionService)
+        public BotController(ILogger<BotController> logger, ActionService actionService, PhraseService phraseService)
         {
             _logger = logger;
             _actionService = actionService;
+            _phraseService = phraseService;
             _botClient = new TelegramBotClient("");
         }
 
         [HttpPost]
         public async Task<ActionResult> Post([FromBody]Update update)
         {
+            //-1001364811368
             var userStage = _actionService.GetUserStage(update.Message.Chat.Id);
-            await _botClient.SendTextMessageAsync(-1001364811368, update.Message.Text);
+            await _botClient.SendTextMessageAsync(update.Message.Chat.Id, _phraseService.GetPhrase(userStage));
+            _actionService.SetNextStage(update.Message.Chat.Id, userStage);
             return new OkResult();
         }
     }

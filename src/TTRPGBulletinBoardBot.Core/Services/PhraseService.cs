@@ -7,11 +7,11 @@ namespace TTRPGBulletinBoardBot.Core.Services
     {
         private readonly Dictionary<Stage, string> _phrases = new()
         {
-            {Stage.Start, ""}
+            {Stage.Start, "Привет. используй команду /find_players для создания объявления о наборе игроков."},
         };
         public string GetPhrase(Stage stage)
         {
-            throw new NotImplementedException();
+            return _phrases[Stage.Start];
         }
     }
 }
