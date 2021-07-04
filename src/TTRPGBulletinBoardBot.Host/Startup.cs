@@ -32,7 +32,7 @@ namespace TTRPGBulletinBoardBot.Host
             services.AddControllers()
                 .AddNewtonsoftJson();
 
-            services.AddTransient<ActionService>();
+            services.AddTransient<StageService>();
             services.AddSingleton<UsersRepository>();
             services.AddSingleton<PhraseService>();
             services.AddSwaggerGen(c =>

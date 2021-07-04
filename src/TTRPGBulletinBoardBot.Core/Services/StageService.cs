@@ -4,11 +4,11 @@ using TTRPGBulletinBoardBot.Core.Repositories;
 
 namespace TTRPGBulletinBoardBot.Core.Services
 {
-    public class ActionService
+    public class StageService
     {
         private readonly UsersRepository _usersRepository;
 
-        public ActionService(UsersRepository usersRepository)
+        public StageService(UsersRepository usersRepository)
         {
             _usersRepository = usersRepository;
         }

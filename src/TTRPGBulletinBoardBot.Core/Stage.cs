@@ -8,6 +8,6 @@
         AskExpectations,
         AskSystem,
         AskDateTime,
-        Message
+        Publication
     }
 }
