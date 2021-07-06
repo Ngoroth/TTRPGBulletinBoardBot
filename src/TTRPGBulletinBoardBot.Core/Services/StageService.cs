@@ -26,7 +26,9 @@ namespace TTRPGBulletinBoardBot.Core.Services
 
         public void SetNextStage(long userId, Stage currentStage)
         {
-            _usersRepository.SetUserStage(userId, currentStage + 1);
+            var userEntity = _usersRepository.FindOne(userId);
+            userEntity = userEntity! with {Stage = currentStage + 1};
+            _usersRepository.Update(userEntity);
         }
     }
 }

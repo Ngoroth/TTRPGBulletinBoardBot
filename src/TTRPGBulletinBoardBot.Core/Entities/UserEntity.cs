@@ -1,8 +1,18 @@
-﻿namespace TTRPGBulletinBoardBot.Core.Entities
+﻿using System.Collections.Generic;
+
+namespace TTRPGBulletinBoardBot.Core.Entities
 {
-    public record UserEntity(long Id, Stage Stage)
+    public sealed record UserEntity(long Id, Stage Stage)
     {
-        public virtual bool Equals(UserEntity? other)
+        public Dictionary<Stage, string> Answers { get; set; } = new()
+        {
+            {Stage.AskGameName, ""},
+            {Stage.AskDescription, ""},
+            {Stage.AskSystem, ""},
+            {Stage.AskExpectations, ""},
+            {Stage.AskDateTime, ""}
+        };
+        public bool Equals(UserEntity? other)
         {
             if (other is null)
                 return false;

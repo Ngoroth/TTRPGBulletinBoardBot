@@ -13,16 +13,15 @@ namespace TTRPGBulletinBoardBot.Core.Repositories
             _entities.Add(entity);
         }
 
-        public UserEntity? FindOne(long id)
+        public UserEntity? FindOne(long userId)
         {
-            return _entities.FirstOrDefault(entity => entity.Id == id);
+            return _entities.FirstOrDefault(entity => entity.Id == userId);
         }
 
-        public void SetUserStage(long userId, Stage stage)
+        public void Update(UserEntity userEntity)
         {
-            var userEntity = _entities.Single(entity => entity.Id == userId);
             _entities.Remove(userEntity);
-            _entities.Add(new UserEntity(userId, stage));
+            _entities.Add(userEntity);
         }
     }
 }
