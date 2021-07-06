@@ -35,6 +35,7 @@ namespace TTRPGBulletinBoardBot.Host
             services.AddTransient<StageService>();
             services.AddSingleton<UsersRepository>();
             services.AddSingleton<PhraseService>();
+            services.AddSingleton<BotService>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "TTRPGBulletinBoardBot.Host", Version = "v1"});

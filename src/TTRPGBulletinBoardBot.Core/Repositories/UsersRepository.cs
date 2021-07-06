@@ -20,6 +20,24 @@ namespace TTRPGBulletinBoardBot.Core.Repositories
 
         public void Update(UserEntity userEntity)
         {
+            updateEntity(userEntity);
+        }
+        
+        public void SetUserStage(long userId, Stage stage)
+        {
+            var userEntity = _entities.Single(entity => entity.Id == userId) with {Stage = stage};
+            updateEntity(userEntity);
+        }
+
+        public void SetAnswer(long userId, Stage stage, string answer)
+        {
+            var userEntity = _entities.Single(entity => entity.Id == userId);
+            userEntity.Answers[stage] = answer;
+            updateEntity(userEntity);
+        }
+
+        private void updateEntity(UserEntity? userEntity)
+        {
             _entities.Remove(userEntity);
             _entities.Add(userEntity);
         }
