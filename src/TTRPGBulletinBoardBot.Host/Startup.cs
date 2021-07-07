@@ -24,8 +24,7 @@ namespace TTRPGBulletinBoardBot.Host
         {
             services.AddControllers()
                 .AddNewtonsoftJson();
-
-            services.AddTransient<StageService>();
+            
             services.AddSingleton<UsersRepository>();
             services.AddSingleton<PhraseService>();
             services.AddSingleton<BotService>();

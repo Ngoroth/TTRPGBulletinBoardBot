@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Telegram.Bot;
 using Telegram.Bot.Types;
+using Telegram.Bot.Types.Enums;
 using TTRPGBulletinBoardBot.Core;
 using TTRPGBulletinBoardBot.Core.Services;
 
@@ -35,7 +36,7 @@ namespace TTRPGBulletinBoardBot.Host.Controllers
                         await _botClient.SendTextMessageAsync(update.Message.Chat.Id, text);
                         break;
                     case BotAction.MakePublicationInChannel:
-                        await _botClient.SendTextMessageAsync(-1001364811368, text);
+                        await _botClient.SendTextMessageAsync(-1001364811368, text, ParseMode.MarkdownV2);
                         break;
                 }
             }
