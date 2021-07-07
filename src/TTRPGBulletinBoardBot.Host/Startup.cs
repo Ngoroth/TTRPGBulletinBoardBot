@@ -1,17 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.Json;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Telegram.Bot;
 using TTRPGBulletinBoardBot.Core.Repositories;
 using TTRPGBulletinBoardBot.Core.Services;
 
@@ -36,6 +29,9 @@ namespace TTRPGBulletinBoardBot.Host
             services.AddSingleton<UsersRepository>();
             services.AddSingleton<PhraseService>();
             services.AddSingleton<BotService>();
+            services.AddSingleton<PublicationService>();
+            services.AddSingleton<ITelegramBotClient>(_ =>
+                new TelegramBotClient(Configuration.GetValue<string>("BotToken")));
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "TTRPGBulletinBoardBot.Host", Version = "v1"});

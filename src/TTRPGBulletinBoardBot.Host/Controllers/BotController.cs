@@ -16,11 +16,10 @@ namespace TTRPGBulletinBoardBot.Host.Controllers
         private readonly ITelegramBotClient _botClient;
         private readonly BotService _botService;
 
-        public BotController(ILogger<BotController> logger, StageService stageService, PhraseService phraseService,
-            BotService botService)
+        public BotController(ILogger<BotController> logger, BotService botService, ITelegramBotClient botClient)
         {
             _botService = botService;
-            _botClient = new TelegramBotClient("");
+            _botClient = botClient;
         }
 
         [HttpPost]

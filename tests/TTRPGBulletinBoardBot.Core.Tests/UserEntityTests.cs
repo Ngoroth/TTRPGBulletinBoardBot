@@ -9,7 +9,7 @@ namespace TTRPGBulletinBoardBot.Core.Tests
         [Fact]
         public void Equality()
         {
-            var first = new UserEntity(1, Stage.Publication);
+            var first = new UserEntity(1, Stage.AskDescription);
             var second = new UserEntity(1, Stage.Start);
             Assert.Equal(first, second);
 

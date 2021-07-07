@@ -4,7 +4,7 @@ namespace TTRPGBulletinBoardBot.Core.Entities
 {
     public sealed record UserEntity(long Id, Stage Stage)
     {
-        public Dictionary<Stage, string> Answers { get; set; } = new()
+        public Dictionary<Stage, string> Answers { get; } = new()
         {
             {Stage.AskGameName, ""},
             {Stage.AskDescription, ""},

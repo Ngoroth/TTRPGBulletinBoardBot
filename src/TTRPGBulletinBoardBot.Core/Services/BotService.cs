@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TTRPGBulletinBoardBot.Core.Repositories;
 
 namespace TTRPGBulletinBoardBot.Core.Services
@@ -9,12 +8,15 @@ namespace TTRPGBulletinBoardBot.Core.Services
         private readonly StageService _stageService;
         private readonly PhraseService _phraseService;
         private readonly UsersRepository _usersRepository;
+        private readonly PublicationService _publicationService;
 
-        public BotService(StageService stageService, PhraseService phraseService, UsersRepository usersRepository)
+        public BotService(StageService stageService, PhraseService phraseService, UsersRepository usersRepository,
+            PublicationService publicationService)
         {
             _stageService = stageService;
             _phraseService = phraseService;
             _usersRepository = usersRepository;
+            _publicationService = publicationService;
         }
 
         public IEnumerable<(BotAction BotAction, string BotMessage)> Process(long userId, string userMessage)
@@ -42,19 +44,12 @@ namespace TTRPGBulletinBoardBot.Core.Services
                     return new[]
                     {
                         (BotAction.SendMessageToUser, _phraseService.GetPhrase(userStage + 1)),
-                        (BotAction.MakePublicationInChannel, _phraseService.GetPhrase(userStage))
+                        (BotAction.MakePublicationInChannel, _publicationService.MakePublicationText(userId))
                     };
-                case Stage.Publication:
-                    return new[] {(BotAction.MakePublicationInChannel, _phraseService.GetPhrase(userStage))};
                 default:
                     return new[] {(BotAction.SendMessageToUser, _phraseService.GetPhrase(Stage.Start))};
             }
 
-        }
-        
-        public BotAction DefineBotAction(long userId, string message)
-        {
-            throw new NotImplementedException();
         }
     }
 }
