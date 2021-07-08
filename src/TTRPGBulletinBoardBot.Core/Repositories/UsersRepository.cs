@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using TTRPGBulletinBoardBot.Core.Entities;
 
@@ -29,7 +30,7 @@ namespace TTRPGBulletinBoardBot.Core.Repositories
 
         private void updateEntity(UserEntity? userEntity)
         {
-            _entities.Remove(userEntity);
+            _entities.Remove(userEntity ?? throw new ArgumentNullException(nameof(userEntity)));
             _entities.Add(userEntity);
         }
     }
