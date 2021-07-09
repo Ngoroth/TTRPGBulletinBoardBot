@@ -1,4 +1,3 @@
-using System;
 using TTRPGBulletinBoardBot.Core.Entities;
 using Xunit;
 

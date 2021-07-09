@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 using TTRPGBulletinBoardBot.Core.Extensions;
 using TTRPGBulletinBoardBot.Core.Repositories;
 

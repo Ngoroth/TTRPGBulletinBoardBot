@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Telegram.Bot;
@@ -26,6 +25,7 @@ namespace TTRPGBulletinBoardBot.Host.Controllers
         [HttpPost]
         public async Task<ActionResult> Post([FromBody]Update update)
         {
+            if (update.Type != UpdateType.Message) return new OkResult();
             var actions = _botService.Process(update.Message.Chat.Id, update.Message.Text);
 
             foreach (var (action, text) in actions)
