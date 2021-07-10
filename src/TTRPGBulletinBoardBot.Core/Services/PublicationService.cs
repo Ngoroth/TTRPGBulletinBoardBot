@@ -1,21 +1,13 @@
 ﻿using System.Text;
+using TTRPGBulletinBoardBot.Core.Entities;
 using TTRPGBulletinBoardBot.Core.Extensions;
-using TTRPGBulletinBoardBot.Core.Repositories;
 
 namespace TTRPGBulletinBoardBot.Core.Services
 {
     public class PublicationService
     {
-        private UsersRepository _usersRepository;
-
-        public PublicationService(UsersRepository usersRepository)
+        public string MakePublicationText(UserEntity userEntity)
         {
-            _usersRepository = usersRepository;
-        }
-
-        public string MakePublicationText(long userId)
-        {
-            var userEntity = _usersRepository.GetOne(userId);
             var publicationMessage = new StringBuilder("#Поиск_Игроков".EscapeMarkdownV2());
             publicationMessage.AppendLine();
             publicationMessage.AppendLine(userEntity!.Answers[Stage.AskGameName].EscapeMarkdownV2().MakeBold());

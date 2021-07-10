@@ -12,6 +12,7 @@ namespace TTRPGBulletinBoardBot.Core.Services
             {Stage.AskSystem, "Укажи систему по которой будет проводиться игра."},
             {Stage.AskDateTime, "Когда и во сколько будет проводиться игра?"},
             {Stage.AskExpectations, "Что тебе хотелось бы видеть в игроках?"},
+            {Stage.Preview, "Вот так будет выглядеть объявление. Публикую? (Скажите Да или Нет)."},
             {Stage.Publication, "Объявление о игре опубликовано в канале https://t.me/TTRPG_Bulletin_board"}
         };
         public string GetPhrase(Stage stage)

@@ -19,41 +19,65 @@ namespace TTRPGBulletinBoardBot.Core.Services
             _publicationService = publicationService;
         }
 
-        public IEnumerable<(BotAction BotAction, string BotMessage)> Process(long userId, string userMessage)
+        public IEnumerable<(BotAction BotAction, TextFormat TextFormat, string BotMessage)> Process(long userId,
+            string userMessage)
         {
             var userEntity = _usersRepository.GetOne(userId);
+
+            if (userMessage.StartsWith("/find_players"))
+                return resetToStage(userEntity, Stage.AskGameName);
 
             switch (userEntity.Stage)
             {
                 case Stage.Publication:
                 case Stage.Start:
-                    if (!userMessage.StartsWith("/find_players"))
-                        return new[] {(BotAction.SendMessageToUser, _phraseService.GetPhrase(Stage.Start))};
-                    _usersRepository.Update(userEntity with {Stage = Stage.AskGameName});
-                    return new[] {(BotAction.SendMessageToUser, _phraseService.GetPhrase(Stage.AskGameName))};
-
+                    return new[]
+                        {(BotAction.SendMessageToUser, TextFormat.Text, _phraseService.GetPhrase(Stage.Start))};
                 case Stage.AskGameName:
                 case Stage.AskDescription:
                 case Stage.AskExpectations:
                 case Stage.AskSystem:
                     return processAskStage(userEntity, userMessage);
                 case Stage.AskDateTime:
-                    return processAskStage(userEntity, userMessage)
-                        .Concat(new[]
+                    return new[]
                         {
-                            (BotAction.MakePublicationInChannel, _publicationService.MakePublicationText(userId))
-                        });
+                            (BotAction.SendMessageToUser, TextFormat.MarkdownV2,
+                                _publicationService.MakePublicationText(userEntity))
+                        }
+                        .Concat(processAskStage(userEntity, userMessage));
+                case Stage.Preview:
+                    if (userMessage.ToLower().StartsWith("да"))
+                    {
+                        return processAskStage(userEntity, userMessage)
+                            .Concat(new[]
+                            {
+                                (BotAction.MakePublicationInChannel, TextFormat.MarkdownV2,
+                                    _publicationService.MakePublicationText(userEntity))
+                            });
+                    }
+
+                    return resetToStage(userEntity, Stage.Start);
                 default:
-                    return new[] {(BotAction.SendMessageToUser, _phraseService.GetPhrase(Stage.Start))};
+                    return new[]
+                        {(BotAction.SendMessageToUser, TextFormat.Text, _phraseService.GetPhrase(Stage.Start))};
             }
         }
 
-        private IEnumerable<(BotAction BotAction, string BotMessage)> processAskStage(UserEntity userEntity, string answer)
+        private IEnumerable<(BotAction BotAction, TextFormat TextFormat, string BotMessage)> processAskStage(
+            UserEntity userEntity, string answer)
         {
             var updatedUserEntity = userEntity with {Stage = userEntity.Stage + 1};
             updatedUserEntity.Answers[userEntity.Stage] = answer;
             _usersRepository.Update(updatedUserEntity);
-            return new[] {(BotAction.SendMessageToUser, _phraseService.GetPhrase(updatedUserEntity.Stage))};
+            return new[]
+                {(BotAction.SendMessageToUser, TextFormat.Text, _phraseService.GetPhrase(updatedUserEntity.Stage))};
+        }
+
+        private IEnumerable<(BotAction BotAction, TextFormat TextFormat, string BotMessage)> resetToStage(
+            UserEntity userEntity, Stage stage)
+        {
+            _usersRepository.Update(userEntity with {Stage = stage});
+            return new[] {(BotAction.SendMessageToUser, TextFormat.Text, _phraseService.GetPhrase(stage))};
         }
     }
 }

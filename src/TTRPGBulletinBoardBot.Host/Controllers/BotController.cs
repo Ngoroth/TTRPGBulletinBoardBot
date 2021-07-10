@@ -25,18 +25,19 @@ namespace TTRPGBulletinBoardBot.Host.Controllers
         [HttpPost]
         public async Task<ActionResult> Post([FromBody]Update update)
         {
-            if (update.Type != UpdateType.Message) return new OkResult();
+            if (update.Type != UpdateType.Message)
+                return new OkResult();
             var actions = _botService.Process(update.Message.Chat.Id, update.Message.Text);
 
-            foreach (var (action, text) in actions)
+            foreach (var (action, textFormat, text) in actions)
             {
                 switch (action)
                 {
                     case BotAction.SendMessageToUser:
-                        await _botClient.SendTextMessageAsync(update.Message.Chat.Id, text);
+                        await _botClient.SendTextMessageAsync(update.Message.Chat.Id, text, textFormat.ToParseMode());
                         break;
                     case BotAction.MakePublicationInChannel:
-                        await _botClient.SendTextMessageAsync(-1001364811368, text, ParseMode.MarkdownV2);
+                        await _botClient.SendTextMessageAsync(-1001364811368, text, textFormat.ToParseMode());
                         break;
                 }
             }
