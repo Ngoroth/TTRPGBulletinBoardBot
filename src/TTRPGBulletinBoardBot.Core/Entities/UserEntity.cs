@@ -6,11 +6,13 @@ namespace TTRPGBulletinBoardBot.Core.Entities
     {
         public Dictionary<Stage, string> Answers { get; } = new()
         {
-            {Stage.AskGameName, ""},
-            {Stage.AskDescription, ""},
             {Stage.AskSystem, ""},
+            {Stage.AskMaster, ""},
             {Stage.AskExpectations, ""},
-            {Stage.AskDateTime, ""}
+            {Stage.AskDateTime, ""},
+            {Stage.AskLocation, ""},
+            {Stage.AskGameName, ""},
+            {Stage.AskDescription, ""}
         };
         public bool Equals(UserEntity? other)
         {

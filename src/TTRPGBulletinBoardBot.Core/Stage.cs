@@ -3,11 +3,13 @@
     public enum Stage
     {
         Start,
+        AskSystem,
+        AskMaster,
+        AskExpectations,
+        AskDateTime,
+        AskLocation,
         AskGameName,
         AskDescription,
-        AskExpectations,
-        AskSystem,
-        AskDateTime,
         Preview,
         Publication
     }

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using TTRPGBulletinBoardBot.Core.Entities;
 using TTRPGBulletinBoardBot.Core.Repositories;
 
@@ -25,26 +24,28 @@ namespace TTRPGBulletinBoardBot.Core.Services
             var userEntity = _usersRepository.GetOne(userId);
 
             if (userMessage.StartsWith("/find_players"))
-                return resetToStage(userEntity, Stage.AskGameName);
+                return resetToStage(userEntity, Stage.AskSystem);
 
             UserEntity updatedUserEntity;
             switch (userEntity.Stage)
             {
-                case Stage.Publication:
                 case Stage.Start:
+                case Stage.Publication:
                     return new[]
                         {(BotAction.SendMessageToUser, TextFormat.Text, _phraseService.GetPhrase(Stage.Start))};
-                case Stage.AskGameName:
-                case Stage.AskDescription:
-                case Stage.AskExpectations:
                 case Stage.AskSystem:
+                case Stage.AskMaster:
+                case Stage.AskExpectations:
+                case Stage.AskDateTime:
+                case Stage.AskLocation:
+                case Stage.AskGameName:
                     updatedUserEntity = setAnswer(userEntity, userMessage);
                     return new[]
                     {
                         (BotAction.SendMessageToUser, TextFormat.Text,
                             _phraseService.GetPhrase(updatedUserEntity.Stage))
                     };
-                case Stage.AskDateTime:
+                case Stage.AskDescription:
                     updatedUserEntity = setAnswer(userEntity, userMessage);
                     return new[]
                     {
